@@ -61,6 +61,9 @@ dokka {
     prefix = "com.vperi.benchmarks"
     suppress = true
   }
+  externalDocumentationLink {
+    url = new URL("https://kotlin.github.io/kotlinx.coroutines/")
+  }
 }
 
 
