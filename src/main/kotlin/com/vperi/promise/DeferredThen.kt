@@ -12,6 +12,35 @@ typealias SuccessHandler<T, V> = suspend (T) -> V
 
 typealias FailureHandler<T> = suspend (Throwable) -> T
 
+typealias Executor<V> = suspend ((V) -> Unit, (Throwable) -> Unit) -> Unit
+
+/**
+ * Convenience function. A promise-like constructor that
+ * returns a [Deferred]. The single parameter [executor] is
+ * called immediately with two functions that complete
+ * the returned [Deferred] successfully with a value of
+ * type [T] (or exceptionally with a [Throwable])
+ *
+ * @param executor A function that is passed with the arguments
+ *    resolve and reject. The [executor] function is executed immediately,
+ *    passing resolve and reject functions (it may be called
+ *    before the constructor even returns the created object).
+ *
+ *    If an error is thrown in the executor function, the [Deferred]
+ *    is rejected.
+ */
+fun <T> completable(
+  context: CoroutineContext = DefaultDispatcher,
+  executor: Executor<T>
+): Deferred<T> =
+  CompletableDeferred<T>().apply {
+    async(context) {
+      executor(
+        { it: T -> complete(it) },
+        { it: Throwable -> completeExceptionally(it) })
+    }
+  }
+
 /**
  * Convenience function that returns a already completed [Deferred]
  *
@@ -33,15 +62,15 @@ fun <T> completedExceptionally(error: Throwable): Deferred<T> =
 
 /**
  * Waits for the [Deferred] to complete and returns the result
- * (either success or failure) as a [DeferredResult].
+ * (either success or failure) as a [Result].
  *
- * @return DeferredResult
+ * @return Result
  */
-suspend fun <T> Deferred<T>.result(): DeferredResult<T> =
+suspend fun <T> Deferred<T>.result(): Result<T> =
   try {
-    DeferredResult.Value(await())
-  } catch (e: Exception) {
-    DeferredResult.Error(e)
+    Result.Value(await())
+  } catch (e: Throwable) {
+    Result.Error(e)
   }
 
 /**
@@ -65,8 +94,8 @@ fun <T, V> Deferred<T>.then(
   return async(context) {
     result().let {
       when (it) {
-        is DeferredResult.Value -> successHandler(it.value)
-        is DeferredResult.Error ->
+        is Result.Value -> successHandler(it.value)
+        is Result.Error ->
           when (failureHandler) {
             null -> throw it.error
             else -> failureHandler(it.error)
@@ -122,11 +151,11 @@ fun <T, V> Deferred<Deferred<T>>.then(
  * @param context context of the coroutine. The default value is [DefaultDispatcher].
  * @param failureHandler Invoked when the current [Deferred] completes exceptionally
  */
-fun <T> Deferred<T>.catch(
+fun <T, V> Deferred<T>.catch(
   context: CoroutineContext = DefaultDispatcher,
-  failureHandler: FailureHandler<T>
-): Deferred<T> =
-  then(context, { it }, failureHandler)
+  failureHandler: FailureHandler<V>
+): Deferred<V> =
+  then(context, { it as V }, failureHandler)
 
 /**
  * Returns a [Deferred]. When the current [Deferred] completes,
@@ -141,7 +170,7 @@ fun <T> Deferred<T>.catch(
  */
 fun <T, V> Deferred<T>.finally(
   context: CoroutineContext = DefaultDispatcher,
-  handler: suspend (DeferredResult<T>) -> V
+  handler: suspend (Result<T>) -> V
 ): Deferred<V> =
   async(context) { handler(result()) }
 

@@ -1,13 +1,29 @@
 package com.vperi.promise
 
 import com.vperi.kotlin.test.wait
+import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.runBlocking
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import kotlin.test.assertEquals
 
-object PromiseSpec : Spek({
+object DeferredThenSpec : Spek({
+
+  describe("completable()") {
+    it("returns a completable Deferred") {
+      wait(1000, 2) {
+        completable<Int> { resolve, _ ->
+          delay(200)
+          resume()
+          resolve(101)
+        }.then {
+          assertEquals(101, it)
+          resume()
+        }
+      }
+    }
+  }
 
   describe("completed()") {
     it("returns a completed Deferred") {
@@ -109,7 +125,7 @@ object PromiseSpec : Spek({
         completed(1)
           .finally {
             when (it) {
-              is DeferredResult.Value -> assertEquals(1, it.value)
+              is Result.Value -> assertEquals(1, it.value)
               else -> throw Exception()
             }
             resume()
@@ -122,7 +138,7 @@ object PromiseSpec : Spek({
         completedExceptionally<Int>(Exception("test"))
           .finally {
             when (it) {
-              is DeferredResult.Error -> assertEquals("test", it.error.message)
+              is Result.Error -> assertEquals("test", it.error.message)
               else -> throw Exception()
             }
             resume()
@@ -137,6 +153,24 @@ object PromiseSpec : Spek({
         completed(completed(1))
           .then { it: Int ->
             assertEquals(1, it)
+            resume()
+          }
+      }
+    }
+
+    it("unwraps deferreds 2") {
+      wait(1000, 2) {
+        completed(1)
+          .then {
+            assertEquals(1, it)
+            resume()
+            completable<String> { resolve, _ ->
+              delay(200)
+              resolve("Abc")
+            }
+          }
+          .then { it: String ->
+            assertEquals("Abc", it)
             resume()
           }
       }

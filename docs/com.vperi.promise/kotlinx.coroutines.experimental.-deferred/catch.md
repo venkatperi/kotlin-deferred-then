@@ -2,7 +2,7 @@
 
 # catch
 
-`fun <T> Deferred<`[`T`](catch.md#T)`>.catch(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, failureHandler: `[`FailureHandler`](../-failure-handler.md)`<`[`T`](catch.md#T)`>): Deferred<`[`T`](catch.md#T)`>`
+`fun <T, V> Deferred<`[`T`](catch.md#T)`>.catch(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, failureHandler: `[`FailureHandler`](../-failure-handler.md)`<`[`V`](catch.md#V)`>): Deferred<`[`V`](catch.md#V)`>`
 
 Handles the failure case of [then](then.md)
 

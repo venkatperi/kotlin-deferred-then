@@ -1,22 +1,16 @@
 [![](https://jitpack.io/v/com.vperi/kotlin-promise.svg)](https://jitpack.io/#com.vperi/kotlin-promise) [![Build Status](https://travis-ci.org/venkatperi/kotlin-promise.svg?branch=master)](https://travis-ci.org/venkatperi/kotlin-promise)
 
-# Module kotlin-promise
+# Module kotlin-deferred-then
 
-`kotlin-promise` is a minimal API for kotlin [promises](https://en.wikipedia.org/wiki/Futures_and_promises) based largely on native [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) promises.
+`kotlin-deferred-then` provides `then/catch/finally` semantics to
+kotlin coroutines.
 
 ## Examples
 
 #### Async Task
 
 ````kotlin
-promise<String>({ resolve, reject ->
-  // This block runs in a separate thread &
-  // Eventually returns a string
-  Thread.Sleep(500)
-  resolve("world")
-}).then { //it: String ->
-  println("hello " + it)			//=> hello world
-}
+val job = 
 ````
 
 #### Handle Errors

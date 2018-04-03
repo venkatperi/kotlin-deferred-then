@@ -2,11 +2,11 @@
 
 # result
 
-`suspend fun <T> Deferred<`[`T`](result.md#T)`>.result(): `[`DeferredResult`](../-deferred-result/index.md)`<`[`T`](result.md#T)`>`
+`suspend fun <T> Deferred<`[`T`](result.md#T)`>.result(): `[`Result`](../-result/index.md)`<`[`T`](result.md#T)`>`
 
 Waits for the [Deferred](#) to complete and returns the result
-(either success or failure) as a [DeferredResult](../-deferred-result/index.md).
+(either success or failure) as a [Result](../-result/index.md).
 
 **Return**
-DeferredResult
+Result
 

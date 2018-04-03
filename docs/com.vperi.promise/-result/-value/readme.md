@@ -1,8 +1,8 @@
-[kotlin-deferred-then](../../../index.md) / [com.vperi.promise](../../index.md) / [DeferredResult](../index.md) / [Value](./index.md)
+[kotlin-deferred-then](../../../index.md) / [com.vperi.promise](../../index.md) / [Result](../index.md) / [Value](./index.md)
 
 # Value
 
-`data class Value<T> : `[`DeferredResult`](../index.md)`<`[`T`](index.md#T)`>`
+`data class Value<T> : `[`Result`](../index.md)`<`[`T`](index.md#T)`>`
 
 ### Constructors
 
