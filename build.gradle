@@ -49,7 +49,7 @@ junitPlatform {
 }
 
 dokka {
-//  includes = ['intro.md']
+  includes = ['intro.md']
   outputFormat = 'gfm'
   reportUndocumented = false
   outputDirectory = "$buildDir/gfm"
