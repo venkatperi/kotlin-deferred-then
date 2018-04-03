@@ -31,6 +31,12 @@ fun <T> completedExceptionally(error: Throwable): Deferred<T> =
     completeExceptionally(error)
   }
 
+/**
+ * Waits for the [Deferred] to complete and returns the result
+ * (either success or failure) as a [DeferredResult].
+ *
+ * @return DeferredResult
+ */
 suspend fun <T> Deferred<T>.result(): DeferredResult<T> =
   try {
     DeferredResult.Value(await())

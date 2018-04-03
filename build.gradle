@@ -68,7 +68,8 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:${project.'libs.kotlin'}"
   implementation "com.google.guava:guava:${project.'libs.guava'}"
   compile 'com.vperi:kotlin-util:1.0.2'
-  compile project(":kotlin-coroutines-lib")
+  compile 'com.vperi:kotlin-coroutines-lib:1.0.5'
+  //compile project(":kotlin-coroutines-lib")
   compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:${project.'libs.kotlinx'}"
   compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:${project.'libs.kotlinx'}"
 
