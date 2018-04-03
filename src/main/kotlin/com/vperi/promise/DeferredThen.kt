@@ -52,6 +52,10 @@ suspend fun <T> Deferred<T>.result(): DeferredResult<T> =
  * If the invoked handler:
  *    - returns a value, the returned [Deferred] is completed with that value
  *    - throws an exception, the returned [Deferred] completes exceptionally with the exception
+ *
+ * @param context context of the coroutine. The default value is [DefaultDispatcher].
+ * @param successHandler Invoked when the current [Deferred] completes successfully
+ * @param failureHandler Invoked when the current [Deferred] completes exceptionally
  */
 fun <T, V> Deferred<T>.then(
   context: CoroutineContext = DefaultDispatcher,
@@ -74,6 +78,9 @@ fun <T, V> Deferred<T>.then(
 
 /**
  * Handles the success case of [then]
+ *
+ * @param context context of the coroutine. The default value is [DefaultDispatcher].
+ * @param successHandler Invoked when the current [Deferred] completes successfully
  */
 fun <T, V> Deferred<T>.then(
   context: CoroutineContext = DefaultDispatcher,
@@ -83,6 +90,9 @@ fun <T, V> Deferred<T>.then(
 
 /**
  * Special case when current [Deferred] returns [Nothing]
+ *
+ * @param context context of the coroutine. The default value is [DefaultDispatcher].
+ * @param successHandler Invoked when the current [Deferred] completes successfully
  */
 @JvmName("thenNothing")
 fun <V> Deferred<Nothing>.then(
@@ -93,6 +103,9 @@ fun <V> Deferred<Nothing>.then(
 
 /**
  * unwrapping [then]
+ *
+ * @param context context of the coroutine. The default value is [DefaultDispatcher].
+ * @param successHandler Invoked when the current [Deferred] completes successfully
  */
 @JvmName("pThen")
 fun <T, V> Deferred<Deferred<T>>.then(
@@ -105,6 +118,9 @@ fun <T, V> Deferred<Deferred<T>>.then(
 
 /**
  * Handles the failure case of [then]
+ *
+ * @param context context of the coroutine. The default value is [DefaultDispatcher].
+ * @param failureHandler Invoked when the current [Deferred] completes exceptionally
  */
 fun <T> Deferred<T>.catch(
   context: CoroutineContext = DefaultDispatcher,
@@ -119,6 +135,9 @@ fun <T> Deferred<T>.catch(
  * If the invoked handler:
  *    - returns a value, the returned [Deferred] is completed with that value
  *    - throws an exception, the returned [Deferred] completes exceptionally with the exception
+ *
+ * @param context context of the coroutine. The default value is [DefaultDispatcher].
+ * @param handler Invoked with the result (success/failure) of the current [Deferred]
  */
 fun <T, V> Deferred<T>.finally(
   context: CoroutineContext = DefaultDispatcher,

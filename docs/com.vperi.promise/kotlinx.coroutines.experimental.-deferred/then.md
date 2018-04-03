@@ -12,15 +12,34 @@ If the invoked handler:
     - returns a value, the returned [Deferred](#) is completed with that value
     - throws an exception, the returned [Deferred](#) completes exceptionally with the exception
 
-`fun <T, V> Deferred<`[`T`](then.md#T)`>.then(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, successHandler: `[`SuccessHandler`](../-success-handler.md)`<`[`T`](then.md#T)`, `[`V`](then.md#V)`>): Deferred<`[`V`](then.md#V)`>`
+### Parameters
+
+`context` - context of the coroutine. The default value is [DefaultDispatcher](#).
+
+`successHandler` - Invoked when the current [Deferred](#) completes successfully
+
+`failureHandler` - Invoked when the current [Deferred](#) completes exceptionally`fun <T, V> Deferred<`[`T`](then.md#T)`>.then(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, successHandler: `[`SuccessHandler`](../-success-handler.md)`<`[`T`](then.md#T)`, `[`V`](then.md#V)`>): Deferred<`[`V`](then.md#V)`>`
 
 Handles the success case of [then](./then.md)
 
-`@JvmName("thenNothing") fun <V> Deferred<`[`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html)`>.then(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, successHandler: `[`SuccessHandler`](../-success-handler.md)`<`[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)`, `[`V`](then.md#V)`>): Deferred<`[`V`](then.md#V)`>`
+### Parameters
+
+`context` - context of the coroutine. The default value is [DefaultDispatcher](#).
+
+`successHandler` - Invoked when the current [Deferred](#) completes successfully`@JvmName("thenNothing") fun <V> Deferred<`[`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html)`>.then(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, successHandler: `[`SuccessHandler`](../-success-handler.md)`<`[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)`, `[`V`](then.md#V)`>): Deferred<`[`V`](then.md#V)`>`
 
 Special case when current [Deferred](#) returns [Nothing](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing/index.html)
 
-`@JvmName("pThen") fun <T, V> Deferred<Deferred<`[`T`](then.md#T)`>>.then(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, successHandler: `[`SuccessHandler`](../-success-handler.md)`<`[`T`](then.md#T)`, `[`V`](then.md#V)`>): Deferred<`[`V`](then.md#V)`>`
+### Parameters
+
+`context` - context of the coroutine. The default value is [DefaultDispatcher](#).
+
+`successHandler` - Invoked when the current [Deferred](#) completes successfully`@JvmName("pThen") fun <T, V> Deferred<Deferred<`[`T`](then.md#T)`>>.then(context: `[`CoroutineContext`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html)` = DefaultDispatcher, successHandler: `[`SuccessHandler`](../-success-handler.md)`<`[`T`](then.md#T)`, `[`V`](then.md#V)`>): Deferred<`[`V`](then.md#V)`>`
 
 unwrapping [then](./then.md)
 
+### Parameters
+
+`context` - context of the coroutine. The default value is [DefaultDispatcher](#).
+
+`successHandler` - Invoked when the current [Deferred](#) completes successfully

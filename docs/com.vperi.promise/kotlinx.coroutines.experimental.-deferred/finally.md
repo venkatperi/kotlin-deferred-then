@@ -11,3 +11,8 @@ If the invoked handler:
     - returns a value, the returned [Deferred](#) is completed with that value
     - throws an exception, the returned [Deferred](#) completes exceptionally with the exception
 
+### Parameters
+
+`context` - context of the coroutine. The default value is [DefaultDispatcher](#).
+
+`handler` - Invoked with the result (success/failure) of the current [Deferred](#)

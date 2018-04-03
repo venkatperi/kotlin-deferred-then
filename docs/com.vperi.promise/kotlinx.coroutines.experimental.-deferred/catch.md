@@ -6,3 +6,8 @@
 
 Handles the failure case of [then](then.md)
 
+### Parameters
+
+`context` - context of the coroutine. The default value is [DefaultDispatcher](#).
+
+`failureHandler` - Invoked when the current [Deferred](#) completes exceptionally
